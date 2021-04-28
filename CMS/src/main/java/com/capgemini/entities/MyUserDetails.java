@@ -19,7 +19,7 @@ public class MyUserDetails implements UserDetails{
 	public MyUserDetails(User user) {
 		this.userName = user.getUserName();
 		this.password = user.getPassword();
-		this.isLocked = user.isLocked();
+		this.isLocked = user.isStatus();
 		this.authorities = Arrays.stream(user.getRole().split(","))
 				.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}

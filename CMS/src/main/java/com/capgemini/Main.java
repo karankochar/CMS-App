@@ -2,15 +2,6 @@ package com.capgemini;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.capgemini.controllers.AdminController;
-import com.capgemini.entities.Category;
-import com.capgemini.entities.Page;
-import com.capgemini.repository.CategoryRepository;
-import com.capgemini.repository.UserRepository;
 
 @SpringBootApplication
 

@@ -1,18 +1,23 @@
 package com.capgemini.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserRoleException;
+import com.capgemini.exceptions.NoSuchUserException;
 import com.capgemini.service.AdminServiceImpl;
 
 @RestController
@@ -51,16 +56,33 @@ public class AdminController {
 			return response;
 		}
 		
+	//get all users
+	@GetMapping(path="viewAll" ,  produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<User> getAllUser() {
+		return service.findAllUser();
+	}
+	
+//get user by id
+	@GetMapping(path = "search/byId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) throws NoSuchUserException {
+		ResponseEntity<User> response = null;
+		User result = service.findUserById(userId);
+		response = new ResponseEntity<User>(result, HttpStatus.FOUND);
+		return response;
+	}
+	
 		
-	
-	
-	/*
-	 * @GetMapping(path = "viewUser/{userId}", produces =
-	 * MediaType.APPLICATION_JSON_VALUE) public ResponseEntity<User>
-	 * readUser(@PathVariable("userId") int userId){ ResponseEntity<User> response =
-	 * null;
-	 * 
-	 * }
-	 */
+		
+		//modify user by id
+		
+	@PutMapping(path = "modify/byId/{byUserId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	public User modifydata(@RequestBody User user) {
+		return service.modifyUser(user);
+	}
+	//delete a user 
+	@DeleteMapping(path = "delete/byId/{userId}")
+	public boolean deleteStudentById(@PathVariable("userId") int userId) throws NoSuchUserException {
+		return service.removeUser(userId);
+	}
 
 }

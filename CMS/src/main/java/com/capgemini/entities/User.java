@@ -42,8 +42,8 @@ public class User {
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 
-	@Column(name = "is_locked")
-	private boolean isLocked;
+	@Column(name = "status")
+	private boolean status;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Page> page = new  HashSet<>();
@@ -92,16 +92,15 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isLocked() {
-		return isLocked;
+
+	
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setLocked(boolean isLocked) {
-		this.isLocked = isLocked;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
-	
-	
-	
 
 	public String getUserName() {
 		return userName;
@@ -124,12 +123,6 @@ public class User {
 		this.getPage().add(page);
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", role=" + role + ", fullName=" + fullName + ", userName=" + userName
-				+ ", email=" + email + ", password=" + password + ", isLocked=" + isLocked + ", page=" + page + "]";
-	}
-	
 	
 
 }

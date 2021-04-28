@@ -1,5 +1,6 @@
 package com.capgemini.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -9,11 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.entities.Category;
 import com.capgemini.entities.MyUserDetails;
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserRoleException;
-import com.capgemini.exceptions.NoSuchCategoryException;
 import com.capgemini.exceptions.NoSuchUserException;
 import com.capgemini.repository.UserRepository;
 
@@ -50,5 +49,49 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		return result;
 	}
 
+	@Override
+	public User modifyUser(User user) {
+		return userRepository.save(user);
+
+	}
+
+	@Override
+	public User findUserById(int userId) throws NoSuchUserException {
+		try {
+		Optional<User> user = userRepository.findById(userId);
+		if (user.get() != null) {
+			return user.get();
+
+		}} catch(NoSuchElementException e) {
+			throw new NoSuchUserException("user Id  not found");
+
+		}
+		return null;
+
+	}
+
+	@Override
+	public boolean removeUser(int userId) throws NoSuchUserException {
+		try {
+			User user = findUserById(userId);
+
+			if (user != null) {
+				userRepository.delete(user);
+				return true;
+			}
+		} catch (NoSuchElementException e) {
+			throw new NoSuchUserException("user Id not found");
+
+		}
+		return false;
+	}
+
+	@Override
+	public List<User> findAllUser() {
+
+		return userRepository.findAll();
+	}
+	
+	
 
 }
