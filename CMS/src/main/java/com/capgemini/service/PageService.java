@@ -19,6 +19,8 @@ public interface PageService {
 
 	Page findByPageId(int pageId) throws NoSuchPageException;
 	
+	List<Page> findPageByContent(String content) throws NoSuchPageException;
+	
 	// Admin functions:
 	//public List<Page> searchPagesAddedByUser();
 	  

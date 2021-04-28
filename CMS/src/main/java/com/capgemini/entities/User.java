@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -36,9 +38,11 @@ public class User {
 	@Column(name = "user_name", nullable = false, length = 20)
 	private String userName;
 
+	@Email(message = "Email should be valid")
 	@Column(name = "email", unique = true, length = 50)
 	private String email;
-
+	
+	@Size(min = 4, max = 6, message = "Password length should be between 4 and 6")
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 

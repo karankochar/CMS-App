@@ -68,4 +68,11 @@ public class PageController {
 	public List<Page> viewAllPages() {
 		return service.viewAllPages();
 	}
+	
+	@GetMapping(path = "byContent/{content}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Page> findByPageContent(@PathVariable("content") String content) throws NoSuchPageException {
+		return service.findPageByContent(content);
+	}
+	
+	
 }

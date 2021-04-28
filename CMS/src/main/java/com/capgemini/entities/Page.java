@@ -17,37 +17,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Scope(scopeName = "prototype")
 @Entity
 @Table(name = "page_table")
-public class Page implements Serializable{
-	
+public class Page implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "page_id")
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pageId;
-	
+
 	@Column(name = "page_title")
 	private String pageTitle;
-	
+
 	@Autowired
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoryId")
+	@JsonBackReference
 	private Category category;
-	
+
 	@Autowired
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId")
 	private User author;
-	
+
 	@Column(name = "page_content")
 	private String content;
-	
-	public Page() {}
-	
+
+	public Page() {
+	}
 
 	public int getPageId() {
 		return pageId;
@@ -89,14 +93,10 @@ public class Page implements Serializable{
 		this.content = content;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Page [pageId=" + pageId + ", pageTitle=" + pageTitle + ", category=" + category + ", author=" + author
 				+ ", content=" + content + "]";
 	}
-	
-	
-	
+
 }

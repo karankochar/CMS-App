@@ -38,7 +38,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		}
 		return result;
 	}
-	
+
 	public User addAdmin(User user) throws InvalidUserRoleException {
 		User result = null;
 		if (user.getRole().equals("ROLE_ADMIN")) {
@@ -58,11 +58,12 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 	@Override
 	public User findUserById(int userId) throws NoSuchUserException {
 		try {
-		Optional<User> user = userRepository.findById(userId);
-		if (user.get() != null) {
-			return user.get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.get() != null) {
+				return user.get();
 
-		}} catch(NoSuchElementException e) {
+			}
+		} catch (NoSuchElementException e) {
 			throw new NoSuchUserException("user Id  not found");
 
 		}
@@ -91,7 +92,20 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 
 		return userRepository.findAll();
 	}
-	
-	
+
+	/*
+	 * @Override public User viewUser(String userName) throws NoSuchUserException {
+	 * User user1 = new User(); UserDetails currentUser =
+	 * loadUserByUsername(user1.getUserName()); try { Optional<User> user =
+	 * userRepository.findByUserName(userName); if (currentUser.getUsername() ==
+	 * user.get().getUserName()) { return user.get();
+	 * 
+	 * } } catch (NoSuchElementException e) { throw new
+	 * NoSuchUserException("user Id  not found");
+	 * 
+	 * } return null;
+	 * 
+	 * }
+	 */
 
 }

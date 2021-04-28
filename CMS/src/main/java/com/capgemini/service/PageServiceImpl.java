@@ -17,14 +17,9 @@ public class PageServiceImpl implements PageService {
 
 	@Autowired
 	PageRepository repository;
-	
-	@Autowired
-    UserRepository repository1;
-	
-	
+		
 	@Override
 	public Page addPage(Page page) {
-		System.out.println(page);
 		return repository.save(page);
 	
 	}
@@ -83,6 +78,20 @@ public class PageServiceImpl implements PageService {
 		} else {
 			throw new NoSuchPageException("Page Id " + pageId + " doesn't exist");
 		}
+	}
+
+
+
+	@Override
+	public List<Page> findPageByContent(String content) throws NoSuchPageException {
+		List<Page> result = repository.findByContentContaining(content);
+		System.out.println(result);
+		if(result.isEmpty()) {
+			throw new NoSuchPageException("No page with content " + content + " found");
+		}
+		else
+			return result;
+			
 	}
 
 	

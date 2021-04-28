@@ -17,25 +17,28 @@ import javax.persistence.Table;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Component
 @Scope(scopeName = "prototype")
 @Entity
 @Table(name = "category_table")
 public class Category {
-	
+
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "category_id")
 	private int categoryId;
-	
+
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<Page> pageList = new HashSet<>();
-	
+
 	@Column(name = "category_title", nullable = false, length = 50)
 	private String categoryTitle;
-	
-	
-	public Category() {}
+
+	public Category() {
+	}
 
 	public int getCategoryId() {
 		return categoryId;
@@ -53,7 +56,6 @@ public class Category {
 		this.categoryTitle = categoryTitle;
 	}
 
-
 	public Set<Page> getPageList() {
 		return pageList;
 	}
@@ -62,12 +64,9 @@ public class Category {
 		this.pageList = pageList;
 	}
 
-	
 	public void addPage(Page page) {
 		page.setCategory(this); // this will avoid nested cascade
 		this.getPageList().add(page);
 	}
 
-	
-	
 }

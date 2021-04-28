@@ -13,4 +13,5 @@ public interface AdminService {
 	 public User findUserById(int userId)throws NoSuchUserException ;
 	 public boolean  removeUser(int userId) throws NoSuchUserException;
 	 public List<User > findAllUser();
+	//User viewUser(String userName) throws NoSuchUserException;
 }
