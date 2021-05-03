@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -35,13 +33,11 @@ public class User {
 	@Column(name = "full_name", nullable = false, length = 50)
 	private  String fullName;
 	
-	@Column(name = "user_name", nullable = false, length = 20)
+	@Column(name = "user_name", nullable = false, length = 20,unique = true)
 	private String userName;
 
-	@Email(message = "Email should be valid")
-	@Column(name = "email", unique = true, length = 50)
+	@Column(name = "email", unique = true, length = 50,nullable = false)
 	private String email;
-	
 
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
@@ -125,6 +121,12 @@ public class User {
 	public void addPage(Page page) {
 		page.setAuthor(this); // this will avoid nested cascade
 		this.getPage().add(page);
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", role=" + role + ", fullName=" + fullName + ", userName=" + userName
+				+ ", email=" + email + ", password=" + password + ", status=" + status + ", page=" + page + "]";
 	}
 
 	

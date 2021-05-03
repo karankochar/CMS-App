@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalException {
-	@ExceptionHandler(NoSuchUserException.class)
-
-	public ResponseEntity<String> NoSuchUserExceptionHandler(NoSuchUserException e) {
-		return new ResponseEntity<String>("User  id  not found", HttpStatus.INTERNAL_SERVER_ERROR);
+	
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = { NoSuchUserException.class })
+	public String NoSuchUserExceptionHandler(Exception e) {
+		String body = e.getMessage();
+		return body;
 	}
 	
 	@ResponseBody

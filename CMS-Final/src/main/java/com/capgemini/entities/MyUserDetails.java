@@ -1,4 +1,4 @@
-package com.capgemini.entities;
+	package com.capgemini.entities;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,7 +15,7 @@ public class MyUserDetails implements UserDetails{
 	private String password;
 	private boolean isLocked;
 	private List<GrantedAuthority> authorities;
-	
+                      	
 	public MyUserDetails(User user) {
 		this.userName = user.getUserName();
 		this.password = user.getPassword();

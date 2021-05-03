@@ -10,14 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Component
@@ -36,18 +38,18 @@ public class Page implements Serializable {
 	@Column(name = "page_title")
 	private String pageTitle;
 
-	@Autowired
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Column(name = "page_content")
+	private String content;
+
+	@ManyToOne(/* cascade = CascadeType.ALL, */ fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Category category;
 
 	@Autowired
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(/* cascade = CascadeType.ALL, */ fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId")
 	private User author;
-
-	@Column(name = "page_content")
-	private String content;
 
 	public Page() {
 	}
@@ -68,18 +70,22 @@ public class Page implements Serializable {
 		this.pageTitle = pageTitle;
 	}
 
+	@JsonIgnore
 	public Category getCategory() {
 		return category;
 	}
 
+	@JsonIgnore
 	public void setCategory(Category category) {
 		this.category = category;
 	}
 
+	@JsonIgnore
 	public User getAuthor() {
 		return author;
 	}
 
+	@JsonIgnore
 	public void setAuthor(User author) {
 		this.author = author;
 	}
@@ -90,6 +96,15 @@ public class Page implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getCategory_id() {
+		return category.getCategoryId();
+	}
+
+	// getter Method to get the author's full name
+	public String getCategoryTitle() {
+		return category.getCategoryTitle();
 	}
 
 	@Override

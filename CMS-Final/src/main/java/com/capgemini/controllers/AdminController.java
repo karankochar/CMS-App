@@ -2,6 +2,7 @@ package com.capgemini.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,22 +20,25 @@ import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserDetailsExceptions;
 import com.capgemini.exceptions.InvalidUserRoleException;
 import com.capgemini.exceptions.NoSuchUserException;
+import com.capgemini.logger.GlobalLogger;
 import com.capgemini.service.AdminServiceImpl;
 
 @RestController
 @RequestMapping(path = "admin")
+
 public class AdminController {
 
 	@Autowired
 	AdminServiceImpl service;
 
-	@GetMapping()
-	public String Admin() {
-		return ("<h1>Welcome Admin<h1>");
-	}
+	private Logger logger = GlobalLogger.getLogger(AdminController.class);
 
+	// add an admin user
 	@PostMapping(path = "addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-	public ResponseEntity<User> createAdmin(@RequestBody User user) throws InvalidUserDetailsExceptions{
+	public ResponseEntity<User> createAdmin(@RequestBody User user) throws InvalidUserDetailsExceptions {
+		String Methodname = "createAdmin()";
+		logger.info(Methodname + " called");
+
 		ResponseEntity<User> response = null;
 		User result = service.addAdmin(user);
 		if (result != null)
@@ -44,8 +48,12 @@ public class AdminController {
 		return response;
 	}
 
+	// add a user
 	@PostMapping(path = "addUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public ResponseEntity<User> createUser(@RequestBody User user) throws InvalidUserDetailsExceptions {
+		String Methodname = "createUser()";
+		logger.info(Methodname + " called");
+
 		ResponseEntity<User> response = null;
 		User result = service.addUser(user);
 		if (result != null)
@@ -58,12 +66,18 @@ public class AdminController {
 	// get all users
 	@GetMapping(path = "viewAll", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAllUser() {
+		String Methodname = "getAllUser()";
+		logger.info(Methodname + " called");
 		return service.findAllUser();
 	}
 
 //get user by id
 	@GetMapping(path = "search/byId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getUserById(@PathVariable("userId") int userId) throws NoSuchUserException {
+
+		String methodname = " getUserById()";
+		logger.info(methodname + "called");
+
 		ResponseEntity<User> response = null;
 		User result = service.findUserById(userId);
 		response = new ResponseEntity<User>(result, HttpStatus.FOUND);
@@ -71,25 +85,20 @@ public class AdminController {
 	}
 
 	// modify user by id
-
 	@PutMapping(path = "modify/byId/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-	public User modifydata(@PathVariable("userId")int userId,  @RequestBody User user) throws NoSuchUserException {
+	public User ModifyUserById(@PathVariable("userId") int userId, @RequestBody User user) throws NoSuchUserException {
+
+		String Methodname = " ModifyUserById()";
+		logger.info(Methodname + " called");
 		return service.modifyUser(user, userId);
 	}
 
 	// delete a user
 	@DeleteMapping(path = "delete/byId/{userId}")
-	public boolean deleteStudentById(@PathVariable("userId") int userId) throws NoSuchUserException {
+	public boolean DeleteUserById(@PathVariable("userId") int userId) throws NoSuchUserException {
+		String Methodname = "DeleteUserById()";
+		logger.info(Methodname + " called");
 		return service.removeUser(userId);
 	}
-
-	/*
-	 * @GetMapping(path = "search/byUserName/{userName}", produces =
-	 * MediaType.APPLICATION_JSON_VALUE) public ResponseEntity<User>
-	 * getUserById(@PathVariable("userName") String userName) throws
-	 * NoSuchUserException { ResponseEntity<User> response = null; User result =
-	 * service.viewUser(userName); response = new ResponseEntity<User>(result,
-	 * HttpStatus.FOUND); return response; }
-	 */
 
 }

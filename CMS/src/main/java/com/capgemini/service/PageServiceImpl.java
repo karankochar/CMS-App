@@ -17,29 +17,26 @@ public class PageServiceImpl implements PageService {
 
 	@Autowired
 	PageRepository repository;
-		
+
 	@Override
 	public Page addPage(Page page) {
 		return repository.save(page);
-	
-	}
 
-	
+	}
 
 	@Override
 	public Page viewPageById(int pageId) throws NoSuchPageException {
 		try {
 			Optional<Page> page = repository.findById(pageId);
-			if(page.get() != null) {
+			if (page.get() != null) {
 				return page.get();
 			}
-			
-		}catch(NoSuchElementException e) {
-			 throw new NoSuchPageException("Page with is " +pageId +" not found");
+
+		} catch (NoSuchElementException e) {
+			throw new NoSuchPageException("Page with is " + pageId + " not found");
 		}
 		return null;
-	
-		
+
 	}
 
 	@Override
@@ -47,15 +44,12 @@ public class PageServiceImpl implements PageService {
 		return repository.findAll();
 	}
 
-
-
 	@Override
 	public Page modifyPage(Page page) {
-	
+
 		return repository.save(page);
 	}
 
-	
 	@Override
 	public Page findByPageId(int pageId) throws NoSuchPageException {
 		Optional<Page> page = repository.findById(pageId);
@@ -65,7 +59,6 @@ public class PageServiceImpl implements PageService {
 			throw new NoSuchPageException("Page Id " + pageId + " entered, doesn't exist");
 		}
 	}
-
 
 	@Override
 	public boolean removePage(int pageId) throws NoSuchPageException {
@@ -80,21 +73,15 @@ public class PageServiceImpl implements PageService {
 		}
 	}
 
-
-
 	@Override
 	public List<Page> findPageByContent(String content) throws NoSuchPageException {
 		List<Page> result = repository.findByContentContaining(content);
-		System.out.println(result);
-		if(result.isEmpty()) {
+		if (result.isEmpty()) {
 			throw new NoSuchPageException("No page with content " + content + " found");
-		}
-		else
+		} else
 			return result;
-			
-	}
 
-	
+	}
 
 	/*
 	 * @Override public List<Page> searchPagesAddedByUser() {
@@ -102,7 +89,5 @@ public class PageServiceImpl implements PageService {
 	 * 
 	 * return null; }
 	 */
-	 
-
 
 }

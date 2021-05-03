@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,11 +27,11 @@ public class Category {
 	@Column(name = "category_id")
 	private int categoryId;
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-	private Set<Page> pageList = new HashSet<>();
-
 	@Column(name = "category_title", nullable = false, length = 50)
 	private String categoryTitle;
+
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Page> pageList = new HashSet<>();
 
 	public Category() {
 	}

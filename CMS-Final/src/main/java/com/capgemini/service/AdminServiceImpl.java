@@ -32,7 +32,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 
 	public User addUser(User user) throws InvalidUserDetailsExceptions {
 		User result = null;
-		if (user.getRole().equals("ROLE_USER") && user.getEmail().matches("[a-zA-Z_]+@[a-zA-Z_]+(.com|.in)")
+		if (user.getRole().equals("ROLE_USER") &&  user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
 				&& user.getPassword().length() >= 6) {
 			result = userRepository.save(user);
 		} else {
@@ -43,7 +43,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 
 	public User addAdmin(User user) throws InvalidUserDetailsExceptions {
 		User result = null;
-		if (user.getRole().equals("ROLE_ADMIN") && user.getEmail().matches("[a-zA-Z_]+@[a-zA-Z_]+(.com|.in)")
+		if (user.getRole().equals("ROLE_ADMIN") && user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
 				&& user.getPassword().length() >= 6) {
 			result = userRepository.save(user);
 		} else {
@@ -51,6 +51,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		}
 		return result;
 	}
+
 
 	@Override
 	public User modifyUser(User user, int userId) throws NoSuchUserException {
@@ -107,5 +108,19 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		return userRepository.findAll();
 	}
 
-	
+	/*
+	 * @Override public User viewUser(String userName) throws NoSuchUserException {
+	 * User user1 = new User(); UserDetails currentUser =
+	 * loadUserByUsername(user1.getUserName()); try { Optional<User> user =
+	 * userRepository.findByUserName(userName); if (currentUser.getUsername() ==
+	 * user.get().getUserName()) { return user.get();
+	 * 
+	 * } } catch (NoSuchElementException e) { throw new
+	 * NoSuchUserException("user Id  not found");
+	 * 
+	 * } return null;
+	 * 
+	 * }
+	 */
+
 }
