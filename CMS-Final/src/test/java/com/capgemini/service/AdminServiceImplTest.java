@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserDetailsExceptions;
 import com.capgemini.exceptions.NoSuchUserException;
-import com.capgemini.service.AdminService;
 
 @SpringBootTest
 public class AdminServiceImplTest {
@@ -23,8 +22,8 @@ public class AdminServiceImplTest {
 	void testFindUserByIdShouldReturnUser() throws InvalidUserDetailsExceptions, NoSuchUserException {
 		User user = new User();
 		user.setFullName("testname11");
-		user.setUserName("test11");
-		user.setEmail("testt@test11.com");
+		user.setUserName("testttt111111");
+		user.setEmail("testtt12t@test.com");
 		user.setPassword("test123411");
 		user.setRole("ROLE_USER");
 		user.setStatus(true);
@@ -58,7 +57,7 @@ public class AdminServiceImplTest {
 		User user1 = new User();
 		user1.setFullName("shiva111m");
 		user1.setUserName("shivam111");
-		user1.setEmail("djvnodnvc11l@gmail.com");
+		user1.setEmail("djvnodnvc1111l@gmail.com");
 		user1.setPassword("password11");
 		user1.setRole("ROLE_USER");
 		user1.setStatus(true);

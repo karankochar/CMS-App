@@ -1,7 +1,5 @@
 package com.capgemini.service;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 	@Autowired
 	private UserRepository repository;
 
+	//saving a admin user to database
 	@Override
 	public User addAdmin(User user) throws InvalidUserRoleException {
 		User result = null;

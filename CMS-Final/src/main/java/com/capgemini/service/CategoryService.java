@@ -13,8 +13,7 @@ public interface CategoryService {
 	public Category updateCategory(Category category) throws NosuchCategoryFoundException;
 
 	public boolean removeCategory(int categoryid) throws NosuchCategoryFoundException;
-	
-	public  List<Category>  FindAllCategory();
-	
+
+	public List<Category> FindAllCategory();
 
 }

@@ -17,9 +17,6 @@ import com.capgemini.exceptions.InvalidUserDetailsExceptions;
 import com.capgemini.exceptions.NoSuchPageException;
 import com.capgemini.exceptions.NoSuchUserException;
 import com.capgemini.exceptions.NosuchCategoryFoundException;
-import com.capgemini.service.AdminService;
-import com.capgemini.service.CategoryService;
-import com.capgemini.service.PageService;
 
 @SpringBootTest
 public class PageServiceImplTest {
@@ -55,7 +52,7 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Page 1G");
 		page2.setContent("GB99 is the best show");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 		List<Page> actual = pageservice.findPageByContent(expected.getContent());
 
 		assertEquals(expected.getPageTitle(), actual.get(actual.size() - 1).getPageTitle());
@@ -63,7 +60,8 @@ public class PageServiceImplTest {
 	}
 
 	@Test
-	void testViewAllShouldReturnAllPageObjects() throws NosuchCategoryFoundException, NoSuchUserException, NoSuchPageException, InvalidUserDetailsExceptions {
+	void testViewAllShouldReturnAllPageObjects() throws NosuchCategoryFoundException, NoSuchUserException,
+			NoSuchPageException, InvalidUserDetailsExceptions {
 		User user1 = new User();
 		user1.setFullName("ViewAll2");
 		user1.setUserName("Viewall2");
@@ -83,13 +81,14 @@ public class PageServiceImplTest {
 		page2.setPageTitle("View All Page2");
 		page2.setContent("2B99 is the best show for few people");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 		List<Page> actual = pageservice.viewAllPages();
 		assertEquals(expected.getPageTitle(), actual.get(actual.size() - 1).getPageTitle());
 	}
 
 	@Test
-	void testAddPageShouldAddPage() throws NoSuchPageException, InvalidUserDetailsExceptions, NosuchCategoryFoundException, NoSuchUserException {
+	void testAddPageShouldAddPage() throws NoSuchPageException, InvalidUserDetailsExceptions,
+			NosuchCategoryFoundException, NoSuchUserException {
 		User user1 = new User();
 		user1.setFullName("AddPage");
 		user1.setUserName("addpage");
@@ -109,14 +108,15 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Add Page");
 		page2.setContent("Adding Page");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 		Page actual = pageservice.viewPageById(expected.getPageId());
 		assertEquals(expected.getPageId(), actual.getPageId());
 
 	}
 
 	@Test
-	void testModifyPageShouldModifyPage() throws NosuchCategoryFoundException, NoSuchUserException, InvalidUserDetailsExceptions {
+	void testModifyPageShouldModifyPage()
+			throws NosuchCategoryFoundException, NoSuchUserException, InvalidUserDetailsExceptions {
 		User user1 = new User();
 		user1.setFullName("Anu");
 		user1.setUserName("anupanda");
@@ -136,15 +136,16 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Page Modify");
 		page2.setContent("Modify Working");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 
 		expected.setPageTitle("After modifying");
-		expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 		assertNotEquals(expected.getPageTitle(), "before modifying");
 	}
-	
+
 	@Test
-	void testViewPageByIdShouldReturnPageOfThatId() throws NoSuchPageException, InvalidUserDetailsExceptions, NosuchCategoryFoundException, NoSuchUserException {
+	void testViewPageByIdShouldReturnPageOfThatId() throws NoSuchPageException, InvalidUserDetailsExceptions,
+			NosuchCategoryFoundException, NoSuchUserException {
 		User user1 = new User();
 		user1.setFullName("PageById");
 		user1.setUserName("pagebyid");
@@ -164,7 +165,7 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Page By Id");
 		page2.setContent("Page By Id Working");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 		Page actual = pageservice.viewPageById(expected.getPageId());
 
 		assertEquals(expected.getPageId(), actual.getPageId());
@@ -180,7 +181,8 @@ public class PageServiceImplTest {
 	}
 
 	@Test
-	void testRemovePageShouldDeletePageOfThatId() throws NoSuchPageException, NosuchCategoryFoundException, NoSuchUserException, InvalidUserDetailsExceptions {
+	void testRemovePageShouldDeletePageOfThatId() throws NoSuchPageException, NosuchCategoryFoundException,
+			NoSuchUserException, InvalidUserDetailsExceptions {
 		User user1 = new User();
 		user1.setFullName("DeletePage2");
 		user1.setUserName("deletepage2");
@@ -200,7 +202,7 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Delete Page By Id");
 		page2.setContent("Delete Page By Id Working");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 //		Page actual = pageservice.viewPageById(expected.getPageId());
 
 		Boolean actual = pageservice.removePage(expected.getPageId());
@@ -217,7 +219,8 @@ public class PageServiceImplTest {
 	}
 
 	@Test
-	void testFindPageByCategoryShouldReturnPageOfThatCategory() throws NosuchCategoryFoundException, InvalidUserDetailsExceptions, NoSuchUserException {
+	void testFindPageByCategoryShouldReturnPageOfThatCategory()
+			throws NosuchCategoryFoundException, InvalidUserDetailsExceptions, NoSuchUserException {
 		User user1 = new User();
 		user1.setFullName("FindCategory3");
 		user1.setUserName("findcategory3");
@@ -237,15 +240,17 @@ public class PageServiceImplTest {
 		page2.setPageTitle("Find Page By Category3");
 		page2.setContent("Finding Page3");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 
 		List<Page> actual = pageservice.findPageByCategory(expected.getCategory().getCategoryTitle());
-		assertEquals(expected.getCategory().getCategoryTitle(), actual.get(actual.size() - 1).getCategory().getCategoryTitle());
+		assertEquals(expected.getCategory().getCategoryTitle(),
+				actual.get(actual.size() - 1).getCategory().getCategoryTitle());
 
 	}
 
 	@Test
-	void testFindPageByUserShouldReturnPageOfThatUser() throws NoSuchUserException, InvalidUserDetailsExceptions, NosuchCategoryFoundException {
+	void testFindPageByUserShouldReturnPageOfThatUser()
+			throws NoSuchUserException, InvalidUserDetailsExceptions, NosuchCategoryFoundException {
 		User user1 = new User();
 		user1.setFullName("FindByUser");
 		user1.setUserName("findbyuser");
@@ -265,15 +270,15 @@ public class PageServiceImplTest {
 		page2.setPageTitle("find by user");
 		page2.setContent("Finding Page by User");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
 
 		List<Page> actual = pageservice.findPageByUser(expected.getAuthor().getFullName());
-		assertEquals(expected.getAuthor().getFullName(),
-				actual.get(actual.size() - 1).getAuthor().getFullName());
+		assertEquals(expected.getAuthor().getFullName(), actual.get(actual.size() - 1).getAuthor().getFullName());
 	}
 
 	@Test
-	void testFindPageByCategoryAndUserShouldReturnPageOfThatCategoryAndUser() throws NoSuchUserException, NosuchCategoryFoundException, InvalidUserDetailsExceptions, NoSuchPageException {
+	void testFindPageByCategoryAndUserShouldReturnPageOfThatCategoryAndUser() throws NoSuchUserException,
+			NosuchCategoryFoundException, InvalidUserDetailsExceptions, NoSuchPageException {
 		User user1 = new User();
 		user1.setFullName("FindByCategory&User");
 		user1.setUserName("findbycategoryy&user");
@@ -293,10 +298,12 @@ public class PageServiceImplTest {
 		page2.setPageTitle("find by cate user");
 		page2.setContent("Finding Page by Category and User");
 
-		Page expected = pageservice.AddPage(user.getUserId(), category.getCategoryId(), page2);
-		
-		List<Page> actual = pageservice.findPageByCategoryAndUser(expected.getCategory().getCategoryTitle(), (expected.getAuthor().getFullName()));
-		assertEquals(expected.getCategory().getCategoryTitle(), actual.get(actual.size() - 1).getCategory().getCategoryTitle());
+		Page expected = pageservice.addPage(user.getUserId(), category.getCategoryId(), page2);
+
+		List<Page> actual = pageservice.findPageByCategoryAndUser(expected.getCategory().getCategoryTitle(),
+				(expected.getAuthor().getFullName()));
+		assertEquals(expected.getCategory().getCategoryTitle(),
+				actual.get(actual.size() - 1).getCategory().getCategoryTitle());
 		assertEquals(expected.getAuthor().getFullName(), actual.get(actual.size() - 1).getAuthor().getFullName());
 	}
 

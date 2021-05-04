@@ -1,5 +1,6 @@
 package com.capgemini.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Component;
 @Scope(scopeName = "prototype")
 @Entity
 @Table(name = "category_table")
-public class Category {
+public class Category implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +36,7 @@ public class Category {
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Page> pageList = new HashSet<>();
 
+	// default contructor
 	public Category() {
 	}
 

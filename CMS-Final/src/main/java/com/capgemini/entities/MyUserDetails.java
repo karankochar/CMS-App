@@ -1,4 +1,4 @@
-	package com.capgemini.entities;
+package com.capgemini.entities;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,19 +9,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyUserDetails implements UserDetails{
-	
+public class MyUserDetails implements UserDetails {
+
 	private String userName;
 	private String password;
 	private boolean isLocked;
 	private List<GrantedAuthority> authorities;
-                      	
+
 	public MyUserDetails(User user) {
 		this.userName = user.getUserName();
 		this.password = user.getPassword();
 		this.isLocked = user.isStatus();
-		this.authorities = Arrays.stream(user.getRole().split(","))
-				.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+		this.authorities = Arrays.stream(user.getRole().split(",")).map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -64,7 +64,5 @@ public class MyUserDetails implements UserDetails{
 		return "MyUserDetails [userName=" + userName + ", password=" + password + ", isLocked=" + isLocked
 				+ ", authorities=" + authorities + "]";
 	}
-	
-	
 
 }

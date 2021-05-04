@@ -9,19 +9,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserDetailsExceptions;
 import com.capgemini.exceptions.NoSuchUserException;
-import com.capgemini.service.AdminService;
-import com.capgemini.service.UserService;
 
 @SpringBootTest
 public class UserServiceImplTest {
-	
+
 	@Autowired
 	AdminService adminService;
-	
+
 	@Autowired
 	UserService userService;
-	
-	
+
 	@Test
 	void testFindUserByIdShouldReturnUser() throws InvalidUserDetailsExceptions, NoSuchUserException {
 		User user = new User();
@@ -39,26 +36,24 @@ public class UserServiceImplTest {
 		assertEquals(expected.getUserName(), actual.getUserName());
 	}
 
-	
-	
 	@Test
-	public void testModifyUserShouldReturnModifiedUserObject() throws InvalidUserDetailsExceptions, NoSuchUserException {
-		  User user = new User();
+	public void testModifyUserShouldReturnModifiedUserObject()
+			throws InvalidUserDetailsExceptions, NoSuchUserException {
+		User user = new User();
 
-		  	user.setFullName("Anuja");
-	        user.setUserName("Anuja1");
-	        user.setEmail("anuja@gmail.com");
-	        user.setPassword("123456");
-	        user.setStatus(true);
-	        user.setRole("ROLE_USER");
-	        User add = adminService.addUser(user);
-	 
-	        
-	        user.setPassword("112233");
-	        user.setUserName("Anuja2");
-	        User update = userService.modifyUser(add, add.getUserId() );
-	        assertEquals(add.getUserId(), update.getUserId());
-	        assertEquals("Anuja2", update.getUserName());
+		user.setFullName("Anuja");
+		user.setUserName("Anuja1");
+		user.setEmail("anuja@gmail.com");
+		user.setPassword("123456");
+		user.setStatus(true);
+		user.setRole("ROLE_USER");
+		User add = adminService.addUser(user);
+
+		user.setPassword("112233");
+		user.setUserName("Anuja2");
+		User update = userService.modifyUser(add, add.getUserId());
+		assertEquals(add.getUserId(), update.getUserId());
+		assertEquals("Anuja2", update.getUserName());
 	}
-	
+
 }

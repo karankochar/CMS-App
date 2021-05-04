@@ -1,8 +1,6 @@
 package com.capgemini.repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -32,9 +30,13 @@ public interface PageRepository extends JpaRepository<Page, Integer> {
 	// Search pages by content
 	@Query("SELECT c FROM Page c WHERE c.content LIKE %:word%")
 	List<Page> findByContent(@Param("word") String content);
-	
+
 	@Modifying
 	@Transactional
 	@Query("Delete from Page p where p.pageId = :pageId")
-	public void deletePageById(@Param("pageId")  int pageId);
+	public void deletePageById(@Param("pageId") int pageId);
+
+	// Search pages added by user by userId
+	@Query("Select p From Page p Where p.author.userId = :userId")
+	public List<Page> findbyUserId(@Param("userId") int userId);
 }

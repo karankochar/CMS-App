@@ -35,13 +35,7 @@ public class PageServiceImpl implements PageService {
 
 	private Logger logger = GlobalLogger.getLogger(PageServiceImpl.class);
 
-	
-	  @Override public Page addPage(Page page) { String methodname = " addPage()";
-	  logger.info(methodname + " called"); return repository.save(page);
-	  
-	  }
-	  
-	 
+	//get a page from database
 	@Override
 	public Page viewPageById(int pageId) throws NoSuchPageException {
 		String methodname = " viewPageById()";
@@ -60,6 +54,7 @@ public class PageServiceImpl implements PageService {
 
 	}
 
+	//get all pages from database
 	@Override
 	public List<Page> viewAllPages() {
 		String methodname = " viewAllPages()";
@@ -67,6 +62,7 @@ public class PageServiceImpl implements PageService {
 		return repository.findAll();
 	}
 
+	//save updated page to the database
 	@Override
 	public Page modifyPage(int userid, int categoryid, Page page)
 			throws NosuchCategoryFoundException, NoSuchUserException {
@@ -99,15 +95,7 @@ public class PageServiceImpl implements PageService {
 		return page2;
 	}
 
-	/*
-	 * @Override public Page findByPageId(int pageId) throws NoSuchPageException {
-	 * String methodname = " findByPageId()"; logger.info(methodname + " called");
-	 * Optional<Page> page = repository.findById(pageId); if (page.get() != null) {
-	 * return page.get(); } else { logger.warn(methodname+"warning has called");
-	 * throw new NoSuchPageException("Page Id " + pageId +
-	 * " entered, doesn't exist"); } }
-	 */
-
+	//delete a page from database
 	@Override
 	public boolean removePage(int pageId) throws NoSuchPageException {
 		String methodname = " removePage()";
@@ -126,7 +114,8 @@ public class PageServiceImpl implements PageService {
 		}
 	}
 
-	public Page AddPage(int userid, int id, Page page) throws NosuchCategoryFoundException, NoSuchUserException {
+	//saving a page to database
+	public Page addPage(int userid, int id, Page page) throws NosuchCategoryFoundException, NoSuchUserException {
 		Set<Page> page1 = new HashSet<>();
 		Category category = new Category();
 		Optional<User> user = repository1.findById(userid);
@@ -153,52 +142,63 @@ public class PageServiceImpl implements PageService {
 		return page2;
 
 	}
-
+	
+	//get page by category title from database
 	@Override
 	public List<Page> findPageByCategory(String categoryTitle) throws NosuchCategoryFoundException {
-		/*
-		 * List<Page> result = repository.findByPageCategoryTitle(categoryTitle);
-		 * System.out.println(result); if (result.isEmpty()) { throw new
-		 * NosuchCategoryFoundException("No Page with Category " + categoryTitle +
-		 * " Found"); } else { return result; }
-		 */
-
-		return repository.findByPageCategoryTitle(categoryTitle);
+		List<Page> result = repository.findByPageCategoryTitle(categoryTitle);
+		if (!result.isEmpty()) {
+			return result;
+		} else {
+			throw new NosuchCategoryFoundException("No Page with Category " + categoryTitle + " Found");
+		}
 	}
 
+	//get page by user's full name from database
 	@Override
 	public List<Page> findPageByUser(String fullName) throws NoSuchUserException {
-		/*
-		 * List<Page> result = repository.findByPageUser(fullName);
-		 * System.out.println(result); if(result.isEmpty()) { throw new
-		 * NoSuchUserException("No User Found with name "+fullName); }else { return
-		 * result; }
-		 */
-
-		return repository.findByPageUser(fullName);
+		List<Page> result = repository.findByPageUser(fullName);
+		if (!result.isEmpty()) {
+			return result;
+		} else {
+			throw new NoSuchUserException("No User Found with name " + fullName);
+		}
 	}
 
+	//get page by category title and user's name
 	@Override
-	public List<Page> findPageByCategoryAndUser(String categoryTitle, String fullName) {
-		return repository.findByCategoryAndUser(categoryTitle, fullName);
+	public List<Page> findPageByCategoryAndUser(String categoryTitle, String fullName) throws NoSuchPageException {
+		List<Page> result = repository.findByCategoryAndUser(categoryTitle, fullName);
+		if (!result.isEmpty()) {
+			return result;
+		} else {
+			throw new NoSuchPageException("No Such Page Exist");
+		}
 	}
 
+	//get pages by user id
+	@Override
+	public List<Page> findPageByUserId(int userId) throws NoSuchUserException {
+		List<Page> result = repository.findbyUserId(userId);
+		if (!result.isEmpty()) {
+			return result;
+		} else {
+			throw new NoSuchUserException("No User Found with id " + userId);
+		}
+
+	}
+
+	//get pages by page content
 	@Override
 	public List<Page> findPageByContent(String content) throws NoSuchPageException {
-		/*
-		 * List<Page> result = repository.findByContent(content);
-		 * System.out.println(result); if (result.isEmpty()) { throw new
-		 * NoSuchPageException("No page with content " + content + " found"); } else
-		 */
-		return repository.findByContent(content);
 
+		List<Page> result = repository.findByContent(content);
+		if (!result.isEmpty()) {
+			return repository.findByContent(content);
+
+		} else {
+			throw new NoSuchPageException("No page with content " + content + " found");
+		}
 	}
-
-	/*
-	 * @Override public List<Page> searchPagesAddedByUser() {
-	 * 
-	 * 
-	 * return null; }
-	 */
 
 }

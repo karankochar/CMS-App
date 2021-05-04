@@ -1,7 +1,6 @@
 package com.capgemini.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capgemini.entities.Category;
 import com.capgemini.exceptions.NosuchCategoryFoundException;
-import com.capgemini.service.CategoryService;
 
 @SpringBootTest
 public class CategoryServiceImplTestCases {

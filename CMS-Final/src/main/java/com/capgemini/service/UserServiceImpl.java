@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 
+	//get user by user id from database
 	@Override
 	public User findUserById(int userId) throws NoSuchUserException {
 		try {
@@ -29,19 +30,18 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	
+	//save updated user to the database
 	@Override
 	public User modifyUser(User user, int userId) throws NoSuchUserException {
 		User result = findUserById(userId);
-		if(result != null && result.getRole().equals("ROLE_USER")) {
+		if (result != null && result.getRole().equals("ROLE_USER")) {
 			result.setRole(user.getRole());
 			result.setFullName(user.getFullName());
 			result.setUserName(user.getUserName());
 			result.setEmail(user.getEmail());
 			result.setPassword(user.getPassword());
 			result.setStatus(user.isStatus());
-		}
-		else {
+		} else {
 			throw new NoSuchUserException("User not found.");
 		}
 		return repository.save(result);

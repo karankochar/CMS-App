@@ -19,24 +19,27 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository repository;
 
 	private Logger logger = GlobalLogger.getLogger(CategoryServiceImpl.class);
+	private static String log = " called";
 
+	//save category to database
 	@Override
 	public Category addCategory(Category category) {
 
 		String methodname = " addCategory()";
-		logger.info(methodname + " called");
-		
+		logger.info(methodname + log);
+
 		return repository.save(category);
 	}
 
+	// get category from database
 	@Override
 	public Category findCategoryById(int categoryid) throws NosuchCategoryFoundException {
 		String methodname = "findCategoryById()";
-		logger.info(methodname + " called");
+		logger.info(methodname + log);
 
 		try {
 			Optional<Category> category = repository.findById(categoryid);
-			if (category.get() != null && category.get().getCategoryId() > 0 )
+			if (category.get() != null && category.get().getCategoryId() > 0)
 				return category.get();
 		} catch (NoSuchElementException e) {
 			throw new NosuchCategoryFoundException("Category id " + categoryid + " is not available");
@@ -45,23 +48,26 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
+	//save updated category to database
 	@Override
 	public Category updateCategory(Category category) throws NosuchCategoryFoundException {
 		String methodname = " updateCategory()";
-		logger.info(methodname + " called");
-		
-		Category result= null;
-		if(category.getCategoryId() > 0 ) 
-		result = repository.save(category);
+		logger.info(methodname + log);
+
+		Category result = null;
+		if (category.getCategoryId() > 0)
+			result = repository.save(category);
 		else {
-			throw new NosuchCategoryFoundException("Category id " + category.getCategoryId() + " is not available");	}
+			throw new NosuchCategoryFoundException("Category id " + category.getCategoryId() + " is not available");
+		}
 		return result;
 	}
 
+	//delete category from database
 	@Override
 	public boolean removeCategory(int categoryid) throws NosuchCategoryFoundException {
 		String methodname = "removeCategory()";
-		logger.info(methodname + " called");
+		logger.info(methodname + log);
 		Category category = findCategoryById(categoryid);
 		if (category != null && category.getCategoryId() > 0) {
 			repository.delete(category);
@@ -71,12 +77,12 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 
 	}
-
-
+	
+	//get all categories from databse
 	@Override
 	public List<Category> FindAllCategory() {
 		String methodname = "FindAllCategory() ";
-		logger.info(methodname + " called");
+		logger.info(methodname + log);
 
 		return repository.findAll();
 	}

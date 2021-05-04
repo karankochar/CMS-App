@@ -1,7 +1,5 @@
 package com.capgemini.service;
 
-import java.util.List;
-
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.NoSuchUserException;
 
