@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.capgemini.exceptions.NosuchCategoryFoundException;
 import com.capgemini.logger.GlobalLogger;
 import com.capgemini.service.PageService;
 
+@CrossOrigin
 @RestController
 public class PageController {
 
@@ -38,7 +40,7 @@ public class PageController {
 	 * @throws NosuchCategoryFoundException
 	 * @throws NoSuchUserException
 	 */
-	@PostMapping(path = "user/page/addPage/{userid}/{categoryId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PostMapping(path = "page/addPage/{userid}/{categoryId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public ResponseEntity<Page> createPagebycategory(@PathVariable("userid") int userid,
 			@PathVariable("categoryId") int id, @RequestBody Page page)
 			throws NosuchCategoryFoundException, NoSuchUserException {
@@ -60,7 +62,7 @@ public class PageController {
 	 * @return
 	 * @throws NoSuchPageException
 	 */
-	@GetMapping(path = "user/page/byId/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "page/byId/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Page> getByPageId(@PathVariable("pageId") int pageId) throws NoSuchPageException {
 		String Methodname = "getByPageId()";
 		logger.info(Methodname + " called");
@@ -76,7 +78,7 @@ public class PageController {
 	 * @return
 	 * @throws NoSuchPageException
 	 */
-	@DeleteMapping(path = "user/page/delete/{pageId}")
+	@DeleteMapping(path = "page/delete/{pageId}")
 	public boolean deletePage(@PathVariable("pageId") int pageId) throws NoSuchPageException {
 		String Methodname = "deletePage()";
 		logger.info(Methodname + " called");
@@ -91,7 +93,7 @@ public class PageController {
 	 * @throws NosuchCategoryFoundException
 	 * @throws NoSuchUserException
 	 */
-	@PutMapping(path = "user/page/modify/{userId}/{categoryId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PutMapping(path = "page/modify/{userId}/{categoryId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public Page UpdatePage(@PathVariable("userId") int userid, @PathVariable("categoryId") int categoryid,
 			@RequestBody Page page) throws NosuchCategoryFoundException, NoSuchUserException {
 		String Methodname = "editPage()";
@@ -102,7 +104,8 @@ public class PageController {
 	/**
 	 * @return
 	 */
-	@GetMapping(path = "user/page/viewAll", produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	@GetMapping(path = "page/viewAll", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Page> viewAllPages() {
 		String Methodname = "viewAllPages()";
 		logger.info(Methodname + " called");
@@ -175,7 +178,7 @@ public class PageController {
 	 * @return
 	 * @throws NoSuchPageException
 	 */
-	@GetMapping(path = "user/page/byContent/{content}")
+	@GetMapping(path = "page/byContent/{content}")
 	public List<Page> getPageByContent(@PathVariable("content") String content) throws NoSuchPageException {
 		return service.findPageByContent(content);
 	}

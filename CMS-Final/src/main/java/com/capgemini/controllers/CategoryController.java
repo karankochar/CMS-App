@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.capgemini.exceptions.NosuchCategoryFoundException;
 import com.capgemini.logger.GlobalLogger;
 import com.capgemini.service.CategoryService;
 
+@CrossOrigin
 @RestController
 @ControllerAdvice
 public class CategoryController {
@@ -36,7 +38,7 @@ public class CategoryController {
 	 * @return
 	 */
 	// add a category
-	@PostMapping(path = "admin/category/addCategory", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PostMapping(path = "category/addCategory", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public Category AddingCategory(@RequestBody Category category) {
 		String Methodname = "AddingCategory()";
 		logger.info(Methodname + " called");
@@ -50,7 +52,7 @@ public class CategoryController {
 	 * @throws NosuchCategoryFoundException
 	 */
 	// modifying a category
-	@PutMapping(path = "admin/category/modifyCategory", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@PutMapping(path = "category/modifyCategory", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public Category UpdateCategory(@RequestBody Category category) throws NosuchCategoryFoundException {
 		String Methodname = " UpdateCategory()";
 		logger.info(Methodname + " called");
@@ -65,7 +67,7 @@ public class CategoryController {
 	 * @throws NosuchCategoryFoundException
 	 */
 	// viewing category by category id
-	@GetMapping(path = "admin/category/search/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "category/search/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Category FindCategoryByID(@PathVariable("categoryId") int categoryId) throws NosuchCategoryFoundException {
 		String Methodname = "FindCategoryByID()";
 		logger.info(Methodname + " called");
@@ -91,7 +93,7 @@ public class CategoryController {
 	 * @throws NosuchCategoryFoundException
 	 */
 	// deleting a category by id
-	@DeleteMapping(path = "admin/category/delete/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "category/delete/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean deleteByCategory(@PathVariable("categoryId") int id) throws NosuchCategoryFoundException {
 
 		String Methodname = " deleteByCategory";

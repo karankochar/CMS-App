@@ -40,8 +40,8 @@ public class AdminServiceImplTest {
 		User user = new User();
 		user.setFullName("shivam11");
 		user.setUserName("shivam11");
-		user.setEmail("shiva11m@gmail.com");
-		user.setPassword("pass11word");
+		user.setEmail("shiva112m@gmail.com");
+		user.setPassword("222224gfg");
 		user.setRole("ROLE_USER");
 		user.setStatus(true);
 
@@ -56,17 +56,17 @@ public class AdminServiceImplTest {
 	void testFindAllShouldReturnAllUserObjects() throws InvalidUserDetailsExceptions {
 		User user1 = new User();
 		user1.setFullName("shiva111m");
-		user1.setUserName("shivam111");
-		user1.setEmail("djvnodnvc1111l@gmail.com");
-		user1.setPassword("password11");
+		user1.setUserName("shivam1fr11");
+		user1.setEmail("djvnodnvc1bf111l@gmail.com");
+		user1.setPassword("passwordrg11");
 		user1.setRole("ROLE_USER");
 		user1.setStatus(true);
 
 		User user2 = new User();
 		user2.setFullName("deepak");
-		user2.setUserName("deepak1112");
-		user2.setEmail("deepakk11k@gmail.com");
-		user2.setPassword("password");
+		user2.setUserName("deepeak1112");
+		user2.setEmail("deepakk11rk@gmail.com");
+		user2.setPassword("eeeeeeeeeeee");
 		user2.setRole("ROLE_USER");
 		user2.setStatus(true);
 
@@ -82,9 +82,9 @@ public class AdminServiceImplTest {
 		User admin = new User();
 
 		admin.setFullName("Deepak");
-		admin.setUserName("deep11ak");
+		admin.setUserName("deep11vfgak");
 		admin.setEmail("deepa11k@yahoo.com");
-		admin.setPassword("123456");
+		admin.setPassword("12345vdjkvbsd");
 		admin.setStatus(true);
 		admin.setRole("ROLE_ADMIN");
 
@@ -100,9 +100,9 @@ public class AdminServiceImplTest {
 	void testAddAdminShouldAddUser() throws NoSuchUserException, InvalidUserDetailsExceptions {
 		User user = new User();
 		user.setFullName("Anuj");
-		user.setUserName("a11n678eeerrrrrrrrru");
-		user.setEmail("rrrrr09eerr@gmail.com");
-		user.setPassword("12345655");
+		user.setUserName("a11n6vdvdsv78eeerrrrrrrrru");
+		user.setEmail("rrrrrvd09eerr@gmail.com");
+		user.setPassword("123vd45655");
 		user.setStatus(true);
 		user.setRole("ROLE_USER");
 
@@ -121,14 +121,14 @@ public class AdminServiceImplTest {
 		user.setFullName("Anuja");
 		user.setUserName("Anu11ja2");
 		user.setEmail("anuja11a@gmail.com");
-		user.setPassword("123456");
+		user.setPassword("12345fdafvad6");
 		user.setStatus(true);
 		user.setRole("ROLE_USER");
 		User add = service.addUser(user);
 
 		add.setUserId(user.getUserId());
-		add.setPassword("1122333");
-		add.setUserName("Anuj22a3");
+		add.setPassword("112233dv3");
+		add.setUserName("Anuj22avds3");
 		User update = service.modifyUser(add, add.getUserId());
 		assertEquals(add.getUserId(), update.getUserId());
 		// assertEquals(add.getRole(), update.getRole());

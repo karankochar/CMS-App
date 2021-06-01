@@ -16,7 +16,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.2.12.RELEASE'
 	compile 'org.springframework.boot:spring-boot-devtools:2.2.12.RELEASE'
@@ -30,7 +30,7 @@ implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.2.
 implementation 'org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE'
 
 // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
-implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '3.1.0.RELEASE'
+
 	
 }
 

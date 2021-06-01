@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -41,7 +39,6 @@ public class Page implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Category category;
 
 	@Autowired
@@ -49,7 +46,7 @@ public class Page implements Serializable {
 	@JoinColumn(name = "userId")
 	private User author;
 
-	// default contructor
+	// default constructor
 	public Page() {
 	}
 
@@ -105,7 +102,14 @@ public class Page implements Serializable {
 	public String getCategoryTitle() {
 		return category.getCategoryTitle();
 	}
-
+	
+	public String getFullName() {
+		return author.getFullName();
+	}
+	public int getUserId() {
+		return author.getUserId();
+	}
+	
 	@Override
 	public String toString() {
 		return "Page [pageId=" + pageId + ", pageTitle=" + pageTitle + ", category=" + category + ", author=" + author

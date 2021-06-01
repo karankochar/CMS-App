@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,9 @@ import com.capgemini.exceptions.NoSuchUserException;
 import com.capgemini.logger.GlobalLogger;
 import com.capgemini.service.AdminServiceImpl;
 
+@CrossOrigin
 @RestController
-@RequestMapping(path = "admin")
+//@RequestMapping()
 
 public class AdminController {
 
@@ -96,7 +98,7 @@ public class AdminController {
 
 		ResponseEntity<User> response = null;
 		User result = service.findUserById(userId);
-		response = new ResponseEntity<User>(result, HttpStatus.FOUND);
+		response = new ResponseEntity<User>(result, HttpStatus.OK);
 		return response;
 	}
 

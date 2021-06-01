@@ -6,12 +6,8 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.entities.MyUserDetails;
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.InvalidUserDetailsExceptions;
 import com.capgemini.exceptions.NoSuchUserException;
@@ -19,7 +15,7 @@ import com.capgemini.logger.GlobalLogger;
 import com.capgemini.repository.UserRepository;
 
 @Service
-public class AdminServiceImpl implements UserDetailsService, AdminService {
+public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -27,12 +23,13 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 	private Logger logger = GlobalLogger.getLogger(CategoryServiceImpl.class);
 	private static String log = " called";
 
-	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		Optional<User> user = userRepository.findByUserName(userName);
-		user.orElseThrow(() -> new UsernameNotFoundException("Not found" + userName));
-		return user.map(MyUserDetails::new).get();
-	}
+	/*
+	 * @Override public UserDetails loadUserByUsername(String userName) throws
+	 * UsernameNotFoundException { Optional<User> user =
+	 * userRepository.findByUserName(userName); user.orElseThrow(() -> new
+	 * UsernameNotFoundException("Not found" + userName)); return
+	 * user.map(MyUserDetails::new).get(); }
+	 */
 
 	//save user to databse
 	public User addUser(User user) throws InvalidUserDetailsExceptions {
@@ -41,7 +38,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		logger.info(methodname + log);
 
 		User result = null;
-		if (user.getRole().equals("ROLE_USER") && user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
+		if (user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
 				&& user.getPassword().length() >= 6) {
 			result = userRepository.save(user);
 		} else {
@@ -57,7 +54,7 @@ public class AdminServiceImpl implements UserDetailsService, AdminService {
 		logger.info(methodname + log);
 
 		User result = null;
-		if (user.getRole().equals("ROLE_ADMIN") && user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
+		if (user.getEmail().matches("[a-zA-Z0-9_]+@[a-zA-Z_]+(.com|.in)")
 				&& user.getPassword().length() >= 6) {
 			result = userRepository.save(user);
 		} else {

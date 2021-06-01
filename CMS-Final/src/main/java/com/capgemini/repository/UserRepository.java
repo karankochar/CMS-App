@@ -10,4 +10,5 @@ import com.capgemini.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	 Optional<User> findByUserName(String userName);
+	 Optional<User> findByEmail(String email);
 }
